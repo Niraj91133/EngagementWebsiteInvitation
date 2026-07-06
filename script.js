@@ -22,14 +22,11 @@ function setupGateCover() {
     // 2. Add animation class to split covers
     cover.classList.add('open');
 
-    // Show the main content wrapper (but let it fade in)
-    mainContent.style.opacity = '1';
-
-    // 3. Remove cover completely after slide transitions finish (1.5s)
+    // 3. Remove cover completely after slide transitions finish (1.8s)
     setTimeout(() => {
       cover.classList.add('hidden');
       musicBtn.style.display = 'flex'; // Show floating music control
-    }, 1500);
+    }, 1800);
   });
 
   // Music toggle control

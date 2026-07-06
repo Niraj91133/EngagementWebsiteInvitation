@@ -10,7 +10,7 @@
   --font-cursive: 'Great Vibes', 'Alex Brush', cursive;
   --font-serif: 'Playfair Display', Georgia, serif;
   --font-sans: 'Montserrat', sans-serif;
-  --transition-slow: 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-slow: 1.8s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-medium: 0.5s ease;
   --transition-fast: 0.2s ease;
 }
@@ -150,6 +150,9 @@ section {
   z-index: 20;
   text-align: center;
   cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
   transition: transform var(--transition-medium), opacity var(--transition-medium);
 }
 
