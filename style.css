@@ -1,0 +1,1216 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@300;400;500;600;700&family=Alex+Brush&display=swap');
+
+:root {
+  --bg-cream: #fffdfb;
+  --bg-section-alt: #FAF6F0;
+  --color-primary: #52839c; /* Slate blue */
+  --color-accent: #C5A880; /* Warm gold */
+  --color-dark: #2A363B; /* Soft dark */
+  --color-text-muted: #7F8C8D;
+  --font-cursive: 'Great Vibes', 'Alex Brush', cursive;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Montserrat', sans-serif;
+  --transition-slow: 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-medium: 0.5s ease;
+  --transition-fast: 0.2s ease;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: var(--bg-cream);
+  color: var(--color-dark);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Base Headings */
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(197, 168, 128, 0.4); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(197, 168, 128, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(197, 168, 128, 0); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes flash {
+  0% { opacity: 0; }
+  50% { opacity: 0.5; background-color: #fff; }
+  100% { opacity: 0; }
+}
+
+/* Common Layout Components */
+section {
+  padding: 100px 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 100%;
+}
+
+.section-alt {
+  background-color: var(--bg-section-alt);
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* 1. Gate-Fold Cover */
+.gate-cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  overflow: hidden;
+  background-color: var(--bg-cream);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Split panels */
+.gate-panel {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: transform var(--transition-slow);
+}
+
+.gate-panel-left {
+  left: 0;
+  background-position: right center;
+  background-image: url('https://static.tildacdn.net/tild6338-3733-4431-a363-306634383864/Polygon_4.png');
+}
+
+.gate-panel-right {
+  right: 0;
+  background-position: left center;
+  background-image: url('https://static.tildacdn.net/tild3636-6566-4132-b665-343766326335/Polygon_3.png');
+}
+
+/* Border decorations */
+.gate-border {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background-size: contain;
+  background-repeat: repeat-x;
+  z-index: 10;
+  transition: transform var(--transition-slow);
+}
+
+.gate-border-top {
+  top: 0;
+  background-position: bottom center;
+  background-image: url('https://static.tildacdn.net/tild3762-3738-4361-b134-333538333135/Polygon_1_3.png');
+}
+
+.gate-border-bottom {
+  bottom: 0;
+  background-position: top center;
+  background-image: url('https://static.tildacdn.net/tild6262-6339-4933-b833-343039643037/Polygon_2_1.png');
+}
+
+/* Wax Seal Button */
+.gate-seal-container {
+  position: relative;
+  z-index: 20;
+  text-align: center;
+  cursor: pointer;
+  transition: transform var(--transition-medium), opacity var(--transition-medium);
+}
+
+.gate-seal {
+  width: 180px;
+  height: 180px;
+  background-image: url('https://static.tildacdn.net/tild6164-3830-4431-b133-666364353937/Untitled_Project_7.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: pulse 2s infinite;
+  border-radius: 50%;
+}
+
+.gate-text {
+  margin-top: 15px;
+  color: var(--color-primary);
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Cover Open State */
+.gate-cover.open .gate-panel-left {
+  transform: translateX(-100%);
+}
+
+.gate-cover.open .gate-panel-right {
+  transform: translateX(100%);
+}
+
+.gate-cover.open .gate-border-top {
+  transform: translateY(-100%);
+}
+
+.gate-cover.open .gate-border-bottom {
+  transform: translateY(100%);
+}
+
+.gate-cover.open .gate-seal-container {
+  transform: scale(1.3);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Hide cover fully after animations */
+.gate-cover.hidden {
+  display: none;
+}
+
+/* Music Control Button */
+.music-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 999;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform var(--transition-fast);
+}
+
+.music-toggle:hover {
+  transform: scale(1.1);
+}
+
+.music-icon {
+  width: 20px;
+  height: 20px;
+  fill: var(--color-primary);
+}
+
+.music-toggle.playing .music-icon {
+  animation: float 2s infinite ease-in-out;
+}
+
+
+/* 2. Video Greeting Section */
+.video-section {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 0;
+  overflow: hidden;
+}
+
+.video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(42, 54, 59, 0.4);
+  z-index: 2;
+}
+
+.video-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  animation: fadeIn 2s ease-out;
+}
+
+.video-subtitle-top {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.video-names {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 4.5rem;
+  letter-spacing: 2px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  color: var(--bg-cream);
+  text-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.video-names .ampersand {
+  font-family: var(--font-cursive);
+  font-size: 5.5rem;
+  font-weight: 400;
+  color: var(--color-accent);
+  vertical-align: middle;
+  margin: 0 10px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.video-subtitle-bottom {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+
+/* 3. Date Reveal Scratch Card Section */
+.scratch-section {
+  padding: 80px 20px;
+}
+
+.scratch-title {
+  font-size: 2.2rem;
+  color: var(--color-primary);
+  margin-bottom: 10px;
+}
+
+.scratch-desc {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--color-accent);
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+}
+
+.scratch-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  max-width: 600px;
+  width: 100%;
+}
+
+.scratch-card {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--bg-section-alt);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  user-select: none;
+}
+
+.scratch-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-text-muted);
+  margin-bottom: 5px;
+}
+
+.scratch-value {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.scratch-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9998;
+  pointer-events: none;
+}
+
+/* Scratch completed flash */
+.flash-effect {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  background-color: transparent;
+}
+
+.flash-effect.active {
+  animation: flash 0.8s ease-out;
+}
+
+/* Revealed ceremony text */
+.scratch-ceremony-text {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 1s ease, opacity 1s ease;
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  color: var(--color-dark);
+}
+
+.scratch-ceremony-text.visible {
+  max-height: 150px;
+  opacity: 1;
+}
+
+.ceremony-details-highlight {
+  font-family: var(--font-cursive);
+  font-size: 2.5rem;
+  color: var(--color-accent);
+  display: block;
+  margin-top: 10px;
+}
+
+
+/* 4. Greeting Note Section */
+.greeting-section {
+  position: relative;
+}
+
+.greeting-decor-top {
+  width: 120px;
+  margin-bottom: 20px;
+}
+
+.envelope-img {
+  width: 120px;
+  animation: float 4s infinite ease-in-out;
+  margin-bottom: 30px;
+}
+
+.greeting-card {
+  background: white;
+  border: 1px solid rgba(197, 168, 128, 0.2);
+  border-radius: 8px;
+  padding: 50px 30px;
+  box-shadow: 0 10px 30px rgba(197, 168, 128, 0.08);
+  max-width: 600px;
+  position: relative;
+}
+
+.greeting-text {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--color-dark);
+  text-align: center;
+  font-style: italic;
+  white-space: pre-line;
+}
+
+.greeting-decor-bottom {
+  width: 120px;
+  margin-top: 30px;
+}
+
+
+/* 5. Schedule of Events Section */
+.schedule-section {
+  background-image: linear-gradient(to bottom, var(--bg-cream), var(--bg-section-alt), var(--bg-cream));
+}
+
+.schedule-decor-top {
+  width: 180px;
+  margin-bottom: 30px;
+}
+
+.timeline {
+  position: relative;
+  max-width: 700px;
+  margin: 40px auto 0 auto;
+  padding: 20px 0;
+  width: 100%;
+}
+
+/* Timeline central line */
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  background-color: var(--color-accent);
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.timeline-item {
+  padding: 20px 30px;
+  position: relative;
+  background-color: inherit;
+  width: 50%;
+  text-align: right;
+}
+
+.timeline-item:nth-child(even) {
+  left: 50%;
+  text-align: left;
+}
+
+.timeline-item:nth-child(odd) {
+  left: 0;
+}
+
+/* Timeline dots */
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  right: -6px;
+  background-color: var(--bg-cream);
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+  top: 26px;
+  z-index: 1;
+}
+
+.timeline-item:nth-child(even)::after {
+  left: -6px;
+}
+
+.timeline-time {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.timeline-title {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+}
+
+.timeline-desc {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.schedule-decor-bottom {
+  width: 180px;
+  margin-top: 50px;
+}
+
+
+/* 6. Venue Section */
+.venue-section {
+  background-color: var(--bg-cream);
+}
+
+.venue-card {
+  display: flex;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  max-width: 750px;
+  width: 100%;
+  border: 1px solid rgba(0,0,0,0.03);
+}
+
+.venue-image-container {
+  width: 50%;
+  position: relative;
+  min-height: 300px;
+}
+
+.venue-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.venue-info {
+  width: 50%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.venue-icon {
+  width: 35px;
+  height: 35px;
+  margin-bottom: 15px;
+}
+
+.venue-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-accent);
+  margin-bottom: 8px;
+}
+
+.venue-name {
+  font-size: 1.6rem;
+  color: var(--color-primary);
+  margin-bottom: 15px;
+  line-height: 1.3;
+}
+
+.venue-address {
+  font-size: 0.95rem;
+  color: var(--color-dark);
+  margin-bottom: 25px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 25px;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 4px;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  background: transparent;
+  width: fit-content;
+}
+
+.btn:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(82, 131, 156, 0.2);
+}
+
+.btn-primary:hover {
+  background-color: #3e687e;
+  border-color: #3e687e;
+  transform: translateY(-2px);
+}
+
+
+/* 7. Dress Code Intro & Gallery */
+.dresscode-section {
+  overflow-x: hidden;
+}
+
+.hanger-icon {
+  width: 60px;
+  margin-bottom: 15px;
+}
+
+.dresscode-title {
+  font-size: 2.2rem;
+  color: var(--color-primary);
+  margin-bottom: 15px;
+}
+
+.dresscode-desc {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--color-accent);
+  margin-bottom: 40px;
+}
+
+/* Dress code gallery horizontal scroll */
+.gallery-container {
+  width: 100%;
+  overflow-x: auto;
+  padding: 20px 0;
+  margin-bottom: 40px;
+  scrollbar-width: none; /* Hide standard Firefox scrollbar */
+}
+
+.gallery-container::-webkit-scrollbar {
+  display: none; /* Hide Chrome scrollbar */
+}
+
+.gallery-track {
+  display: flex;
+  gap: 20px;
+  padding: 0 40px;
+  width: max-content;
+}
+
+.gallery-item {
+  width: 260px;
+  height: 380px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+.gallery-item:hover {
+  transform: translateY(-5px) scale(1.02);
+}
+
+.gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Color Palette Details */
+.dresscode-details {
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+.color-palette-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-dark);
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.color-circles {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.color-circle {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 1px solid #FAF1DB;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  transition: transform var(--transition-fast);
+  cursor: pointer;
+}
+
+.color-circle:hover {
+  transform: scale(1.15);
+}
+
+.dresscode-text {
+  font-size: 0.95rem;
+  color: var(--color-dark);
+  line-height: 1.8;
+}
+
+
+/* 8. RSVP Section */
+.rsvp-section {
+  background-color: var(--bg-section-alt);
+}
+
+.rsvp-title {
+  font-size: 2.2rem;
+  color: var(--color-primary);
+  margin-bottom: 15px;
+}
+
+.rsvp-desc {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  color: var(--color-dark);
+}
+
+
+/* 9. RSVP Modal Form Popup */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(42, 54, 59, 0.6);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-medium);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-container {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+  position: relative;
+  transform: translateY(30px);
+  transition: transform var(--transition-medium);
+}
+
+.modal-overlay.active .modal-container {
+  transform: translateY(0);
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 1.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+}
+
+.modal-title {
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.modal-desc {
+  font-size: 0.9rem;
+  color: var(--color-accent);
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  color: var(--color-dark);
+  font-weight: 500;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(197, 168, 128, 0.4);
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  background-color: var(--bg-cream);
+  color: var(--color-dark);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 5px rgba(82, 131, 156, 0.2);
+}
+
+/* Custom Checkbox/Radio button group */
+.form-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-radio-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px 12px;
+  border: 1px solid rgba(197, 168, 128, 0.3);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: all var(--transition-fast);
+}
+
+.form-radio-label:hover {
+  background-color: var(--bg-section-alt);
+}
+
+.form-radio-input {
+  margin-right: 10px;
+  accent-color: var(--color-primary);
+}
+
+.form-radio-input:checked + span {
+  font-weight: 500;
+}
+
+/* State highlights */
+.form-radio-label.checked {
+  border-color: var(--color-primary);
+  background-color: rgba(82, 131, 156, 0.05);
+}
+
+/* Form success message */
+.form-success-state {
+  display: none;
+  text-align: center;
+}
+
+.success-icon {
+  font-size: 3rem;
+  color: var(--color-accent);
+  margin-bottom: 15px;
+}
+
+.success-text {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  color: var(--color-primary);
+  margin-bottom: 10px;
+}
+
+.success-subtext {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+
+
+/* 10. Footer Section */
+.footer-section {
+  padding: 100px 20px 80px 20px;
+}
+
+.footer-couple-frame {
+  position: relative;
+  width: 280px;
+  height: 380px;
+  margin-bottom: 40px;
+  border-radius: 12px;
+  padding: 10px;
+  background: white;
+  box-shadow: 0 15px 40px rgba(197, 168, 128, 0.15);
+  border: 1px solid rgba(197, 168, 128, 0.2);
+}
+
+.footer-couple-frame::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border: 1px dashed var(--color-accent);
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+.footer-couple-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.footer-title {
+  font-family: var(--font-cursive);
+  font-size: 3rem;
+  color: var(--color-accent);
+  margin-bottom: 10px;
+}
+
+.footer-names {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  color: var(--color-primary);
+  text-transform: uppercase;
+}
+
+.footer-signature {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-top: 60px;
+  letter-spacing: 1px;
+}
+
+/* Meet the Couple Section */
+.couple-profile-section {
+  padding: 100px 20px;
+  background-color: var(--bg-cream);
+}
+
+.couple-title {
+  font-size: 2.5rem;
+  color: var(--color-primary);
+  margin-bottom: 50px;
+}
+
+.couple-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.couple-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform var(--transition-medium);
+}
+
+.couple-member:hover {
+  transform: translateY(-8px);
+}
+
+.couple-img-frame {
+  position: relative;
+  width: 240px;
+  height: 320px;
+  border-radius: 12px;
+  padding: 8px;
+  background: white;
+  box-shadow: 0 15px 40px rgba(197, 168, 128, 0.15);
+  border: 1px solid rgba(197, 168, 128, 0.2);
+  margin-bottom: 20px;
+}
+
+.couple-img-frame::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  border: 1px dashed var(--color-accent);
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+.couple-member-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.couple-member-name {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  margin-bottom: 5px;
+}
+
+.couple-member-role {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.couple-heart-divider {
+  font-size: 2.5rem;
+  color: var(--color-accent);
+  animation: pulse 1.5s infinite;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  section {
+    padding: 70px 15px;
+  }
+
+  .video-names {
+    font-size: 3.2rem;
+  }
+
+  .video-names .ampersand {
+    font-size: 4rem;
+    margin: 0 5px;
+  }
+
+  .couple-grid {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .couple-heart-divider {
+    transform: rotate(90deg);
+  }
+
+  .couple-img-frame {
+    width: 200px;
+    height: 270px;
+  }
+
+  .video-subtitle-top {
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+  }
+
+  .scratch-grid {
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .scratch-card {
+    width: 110px;
+    height: 110px;
+  }
+  
+  .scratch-canvas {
+    width: 110px;
+    height: 110px;
+  }
+
+  .scratch-value {
+    font-size: 1.4rem;
+  }
+
+  .scratch-label {
+    font-size: 0.7rem;
+  }
+
+  .greeting-card {
+    padding: 35px 20px;
+  }
+
+  .greeting-text {
+    font-size: 1rem;
+  }
+
+  /* Timeline mobile adjustments (single column) */
+  .timeline::after {
+    left: 31px;
+  }
+
+  .timeline-item {
+    width: 100%;
+    padding-left: 55px;
+    padding-right: 15px;
+    text-align: left !important;
+  }
+
+  .timeline-item:nth-child(even) {
+    left: 0;
+  }
+
+  .timeline-item::after {
+    left: 25px !important;
+    right: auto !important;
+  }
+
+  .venue-card {
+    flex-direction: column;
+  }
+
+  .venue-image-container {
+    width: 100%;
+    min-height: 220px;
+  }
+
+  .venue-info {
+    width: 100%;
+    padding: 30px 20px;
+  }
+
+  .gallery-track {
+    padding: 0 15px;
+    gap: 12px;
+  }
+
+  .gallery-item {
+    width: 200px;
+    height: 300px;
+  }
+
+  .modal-container {
+    padding: 30px 20px;
+  }
+}
