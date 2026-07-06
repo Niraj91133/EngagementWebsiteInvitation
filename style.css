@@ -95,6 +95,7 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: background-color var(--transition-slow);
 }
 
 /* Split panels */
@@ -177,6 +178,11 @@ section {
 }
 
 /* Cover Open State */
+.gate-cover.open {
+  background-color: transparent;
+  pointer-events: none;
+}
+
 .gate-cover.open .gate-panel-left {
   transform: translateX(-100%);
 }
