@@ -445,6 +445,15 @@ section {
   margin-top: 10px;
 }
 
+.ceremony-day {
+  font-family: var(--font-cursive);
+  font-size: 2.2rem;
+  color: var(--color-accent);
+  display: block;
+  margin-top: -5px;
+  margin-bottom: 10px;
+}
+
 
 /* 4. Greeting Note Section */
 .greeting-section {
